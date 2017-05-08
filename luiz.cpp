@@ -1,11 +1,10 @@
 #include<iostream>
 #define tam 50
- 
+
 using namespace std;
 
 
-int main(){
-  int v1[tam], x,n;
+
 
 
   cout<<"Digite o numero de vendas\n"; // pede ao menos uma vez para ter um valor como comparação
