@@ -1,6 +1,6 @@
 #include<iostream>
 #define tam 50
- minha mãe não é uma vadia
+ 
 using namespace std;
 
 
