@@ -1,21 +1,21 @@
 
 //Funçao para a opcao Manual Continua
 
-void manualContinua(){
+void manualContinua() {
 
   digitalWrite(6, HIGH);    //Emite um sinal sonoro
   delay(500);
   digitalWrite(6, LOW);
   delay(500);
-  
+
   bool fast = true;
   char aux;
   Serial.println("Voce escolheu a opcao Manual Continua: f= para frente, t= tras, d= direita, e= esquerda, p= parar. ");
-  
+
   while (comando != 's')
-  { 
+  {
     if (Serial.available()) {
-      comando = 0; 
+      comando = 0;
       comando = Serial.read();
 
       if (aux != comando) {
@@ -29,12 +29,13 @@ void manualContinua(){
           delay(600);
         }
       }
+
       aux = comando;
     }
-    int seg = 0, but = 0;
-    seg = 11;
+    int seg = 11, but = 0;
+ 
 
-    if (comando == 'y') {
+    if (comando == 'y') {   //gira no sentido horário
       fast = false;
       motor1.attach(SERVO1);
       motor2.attach(SERVO4);
@@ -46,18 +47,20 @@ void manualContinua(){
       fast = false;
       seg = dist();
       Serial.println(seg);
-      if (seg > 0 && seg <= 10 || seg < 0) {
+      if (seg > 0 && seg <= 10 || seg < 0) {  // Se a distância for menor do que 10 cm "desligue" os motores
         motor1.detach();
         motor2.detach();
       }
-      else {
+      else {                                  
         motor1.attach(SERVO1);
         motor2.attach(SERVO4);
       }
       motor1.write(180);
       motor2.write(0);
     }
+    
     but = 0;
+    
     if (comando == 't' && but == 0 ) {
       fast = false;
       but = digitalRead(BOTAO);
@@ -80,21 +83,21 @@ void manualContinua(){
       motor1.write(0);
       motor2.write(180);
     }
-    if (comando == 'e') {
+    if (comando == 'e') {   //Girar no sentido anti-horario
       fast = false;
       motor1.attach(SERVO1);
       motor2.attach(SERVO4);
       motor1.write(0);
       motor2.write(0);
     }
-    if (comando == 'd') {
+    if (comando == 'd') {   //Girar no sentido anti-horario
       fast = false;
       motor1.attach(SERVO1);
       motor2.attach(SERVO4);
       motor1.write(180);
       motor2.write(180);
     }
-    if (comando == 'p') {
+    if (comando == 'p') {   //Desligar os motores
       fast = true;
       motor1.detach();
       motor2.detach();
